@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" onclick="jump()">
+    <head>
+        <title>Eenie-Meenie</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Quicksand&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Aboreto&display=swap" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@300&display=swap" rel="stylesheet">
+        <style>
+            *{
+                padding: 0;
+                margin: 0;
+            }
+            .title {
+                color:#ffffff !important;
+                font-family: 'Audiowide', cursive; 
+                font-size: 60px;
+                }
+                .ScoreText {
+                color: #999999 !important;
+                font-family: 'Bebas Neue', cursive;
+                font-size: 45px;
+                }
+                .NumberText {
+                color: rgb(255, 255, 255) !important;
+                font-family: 'Bebas Neue', cursive;
+                font-size: 45px;
+                }
+            header{
+                background-color: rgb(24, 24, 24);
+    }
+            #game{
+                width: 500px;
+                height: 500px;
+                border: 1px solid black;
+                margin-left: 200px ;
+                overflow: hidden;
+                border: 5px solid white;
+                
+            }
+            #block{
+                width: 50px;
+                height: 500px;
+                background-color: #d4af37;
+                position: relative;
+                left: 500px;
+                animation: block 1.5s infinite linear;
+            }
+            #hole{
+                width: 50px;
+                height: 200px;
+                background-color: white;
+                position: relative;
+                left: 500px;
+                top: -500px;
+                animation: block 1.5s infinite linear;
+            }
+            #character{
+                width: 100px;
+                height: 100px;
+                position: absolute;
+                top: 300px;
+                
+
+            }
+            #PlayerHome{
+                width: 100%;
+            display: flex;
+            align-items: center;
+            }
+            #iskor{
+                margin:auto;
+            }
+            .btn-primary {
+                color: #242423;
+                background-image:url(https://images.unsplash.com/photo-1555505019-8c3f1c4aba5f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8d29vZGVufGVufDB8fDB8fA%3D%3D&w=1000&q=80) ;
+                border: #242423;
+                color:#ffffff;
+                margin-left: 1%;
+            }
+            @keyframes block{
+                0%{left:500px}
+                100%{left: -50px}
+            }
+        </style>
+    </head>
+    <body class="bg-dark">
+        <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+
+            <span class="nav col-sm-12 mb-2 justify-content-center mb-md-0 title">MAESTRO LEVEL</span>
+      
+            <div class="col-sm-12 text-center">
+
+            </div> 
+      </header>
+      <div id="PlayerHome">
+        <div id="game" class="bg-dark">
+            <div id="block"></div>
+            <div id="hole" class="bg-dark"></div>
+            <div id="character"> <img src="https://media.discordapp.net/attachments/882095196840525897/1086918918272188467/333867095_1363826284397169_4649054405840171508_n.png?width=587&height=587" style="width: 100px; height: 100px; border-radius: 50%;" alt="Chess"></div>
+        </div>
+        <div id="iskor">
+        <span class="ScoreText">SCORE: </span>
+        <span class="NumberText" id="score">0</span>
+        <button type="button" class="btn btn-primary" id="CORRECT1" onclick="home()" >Back to Home</button>
+    </div>
+    </div>
+    <br><br>
+    <audio controls autoplay>
+        <source src="tuba.mp3" type="audio/mpeg">
+      </audio>
+    
+    <script>
+        var block = document.getElementById("block");
+        var hole = document.getElementById("hole");
+        var jumping = 0;
+        var counter = 0;
+
+       
+
+        function home(){
+            window.location.href = "index.html";
+        }
+
+        hole.addEventListener('animationiteration', () => {
+            var random = -((Math.random()*300)+200)
+            hole.style.top = random + "px";
+            counter++; 
+            document.getElementById("score").innerHTML = counter; 
+        });
+        setInterval(function(){
+            var characterTop =
+            parseInt(window.getComputedStyle(character).getPropertyValue("top"));
+            if(jumping==0){
+            character.style.top = (characterTop+3)+"px";                
+            }
+            var blockLeft = parseInt(window.getComputedStyle(block).getPropertyValue("left"));
+            var holeTop = parseInt(window.getComputedStyle(hole).getPropertyValue("top"));
+            var characterTop =
+            parseInt(window.getComputedStyle(character).getPropertyValue("top"));
+            var cTop = -(632-characterTop)
+
+           
+            if((characterTop>547)||((blockLeft<90)&&(blockLeft>-50)&&((cTop<holeTop)||(cTop>holeTop+130)))){
+        
+        character.style.top = 300 + "px";
+        block.style.left = 700 + "px";
+        alert("Game Over. Score: " + counter);
+        counter=0;
+        window.location.href = "maestro.html";
+    }
+    if(counter==69){
+            alert("Aight you completed the hardest level somehow, Good Job, Daddy/Mommy.");
+        }
+        },10);
+        function jump(){
+               jumping = 1;
+               let jumpCount = 0;
+                var jumpInterval = setInterval(function(){
+                    var characterTop = 
+                    parseInt(window.getComputedStyle(character).getPropertyValue("top"));
+                    if(characterTop>150){
+                    character.style.top = (characterTop-5)+"px";}
+                    if(jumpCount>20){
+                        clearInterval(jumpInterval);
+                        jumping=0;
+                        jumpCount=0;
+                    }
+                    jumpCount++;
+                }, 10)
+                
+            }
+    </script>
+    </body>
+</html>
